@@ -32,12 +32,16 @@ func TestTrebuchet(t *testing.T) {
 		{"Line 3", "a1b2c3d4e5f", 15},
 		{"Line 4", "treb7uchet", 77},
 		{"Line 5", "two1nine", 29},
-		//{"Line 6", "eightwothree", 83},
-		//{"Line 7", "abcone2threexyz", 13},
-		//{"Line 8", "xtwone3four", 24},
-		//{"Line 9", "4nineeightseven2", 42},
-		//{"Line 10", "zoneight234", 14},
-		//{"Line 11", "7pqrstsixteen", 76},
+		{"Line 6", "eightwothree", 83},
+		{"Line 7", "abcone2threexyz", 13},
+		{"Line 8", "xtwone3four", 24},
+		{"Line 9", "4nineeightseven2", 42},
+		{"Line 10", "zoneight234", 14},
+		{"Line 11", "7pqrstsixteen", 76},
+		{"Line 12", "twonine4cjqln", 24},
+		{"Line 13", "fivenhcvbntlcfthreemsktzr9two", 52},
+		{"Line 14", "sevenfourfour99seven8", 78},
+		{"Line 15", "3one6", 36},
 	}
 
 	for _, tc := range lineTestCases {
@@ -54,16 +58,27 @@ func TestTrebuchet(t *testing.T) {
 		})
 	}
 
-	t.Run("Gets file total", func(t *testing.T) {
-		want := 142
-		got, err := trebuchet("test.txt")
+	// Define test cases
+	trebuchetTestCases := []struct {
+		name  string
+		given string
+		want  int
+	}{
+		{"Part 1", "test.txt", 142},
+		{"Part 2", "test2.txt", 281},
+	}
 
-		if err != nil {
-			t.Errorf("Error recieved getting file total %e", err)
-		}
+	for _, tc := range trebuchetTestCases {
+		t.Run(tc.name, func(t *testing.T) {
+			got, err := trebuchet(tc.given)
 
-		if got != want {
-			t.Errorf("Got %d, want %d", got, want)
-		}
-	})
+			if err != nil {
+				t.Errorf("Error recieved getting file total %e", err)
+			}
+
+			if got != tc.want {
+				t.Errorf("Got %d, want %d", got, tc.want)
+			}
+		})
+	}
 }

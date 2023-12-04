@@ -5,14 +5,32 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"regexp"
 	"strconv"
 	"unicode"
 )
 
 func getLineTotal(line string) (int, error) {
+	stringDigits := map[string]string{
+		"zero": "0", "one": "1", "two": "2", "three": "3",
+		"four": "4", "five": "5", "six": "6", "seven": "7",
+		"eight": "8", "nine": "9"}
+
+	stringDigitRegex := regexp.MustCompile(`(zero|one|two|three|four|five|six|seven|eight|nine)`)
+
 	var digits []rune
 
-	for _, val := range line {
+	// Helper func to replace in string
+	replaceInString := func(match string) string {
+		if val, ok := stringDigits[match]; ok {
+			return val
+		}
+		return match
+	}
+
+	transformedLine := stringDigitRegex.ReplaceAllStringFunc(line, replaceInString)
+
+	for _, val := range transformedLine {
 		isDigit := unicode.IsDigit(val)
 
 		if isDigit {
