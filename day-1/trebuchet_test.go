@@ -1,20 +1,5 @@
 package main
 
-// 1abc2
-// pqr3stu8vwx
-// a1b2c3d4e5f
-// treb7uchet
-// In this example, the calibration values of these four lines are 12, 38, 15, and 77. Adding these together produces 142.
-
-//two1nine
-//eightwothree
-//abcone2threexyz
-//xtwone3four
-//4nineeightseven2
-//zoneight234
-//7pqrstsixteen
-//In this example, the calibration values are 29, 83, 13, 24, 42, 14, and 76. Adding these together produces 281.
-
 import (
 	"testing"
 )
@@ -42,6 +27,16 @@ func TestTrebuchet(t *testing.T) {
 		{"Line 13", "fivenhcvbntlcfthreemsktzr9two", 52},
 		{"Line 14", "sevenfourfour99seven8", 78},
 		{"Line 15", "3one6", 36},
+		{"Line 979", "jjhxddmg5mqxqbgfivextlcpnvtwothreetwonerzk", 51},
+		{"Line 993", "fivebml9gjvtlfctwo", 52},
+		{"Line 839", "126", 16},
+		{"Line 811", "ffive5x", 55},
+		{"Line 765", "rrkshvnsixknbxdfjhq4nineeightvkhqnr", 68},
+		{"Line 631", "8m", 88},
+		{"Random test", "three2fiveonexrllxsvfive", 35},
+		{"Real line 1", "mxmkjvgsdzfhseightonetwoeight7", 87},
+		{"Random test", "atwonea", 21},
+		{"Random test", "eightninenineeight", 88},
 	}
 
 	for _, tc := range lineTestCases {

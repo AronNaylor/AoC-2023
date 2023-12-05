@@ -11,30 +11,28 @@ import (
 )
 
 func getLineTotal(line string) (int, error) {
-	stringDigits := map[string]string{
-		"zero": "0", "one": "1", "two": "2", "three": "3",
-		"four": "4", "five": "5", "six": "6", "seven": "7",
-		"eight": "8", "nine": "9"}
+	stringDigits := map[string]rune{
+		"zero": '0', "one": '1', "two": '2', "three": '3',
+		"four": '4', "five": '5', "six": '6', "seven": '7',
+		"eight": '8', "nine": '9'}
 
-	stringDigitRegex := regexp.MustCompile(`(zero|one|two|three|four|five|six|seven|eight|nine)`)
+	stringDigitRegex := regexp.MustCompile(`zero|one|two|three|four|five|six|seven|eight|nine`)
 
 	var digits []rune
 
-	// Helper func to replace in string
-	replaceInString := func(match string) string {
-		if val, ok := stringDigits[match]; ok {
-			return val
-		}
-		return match
-	}
-
-	transformedLine := stringDigitRegex.ReplaceAllStringFunc(line, replaceInString)
-
-	for _, val := range transformedLine {
+	for idx, val := range line {
 		isDigit := unicode.IsDigit(val)
 
 		if isDigit {
 			digits = append(digits, val)
+		}
+
+		// This is a little bit naive as it will lead to duplicate values
+		// but order will be preserved which is important
+		match := stringDigitRegex.FindString(line[idx:])
+		if match != "" {
+			digit := stringDigits[match]
+			digits = append(digits, digit)
 		}
 	}
 
